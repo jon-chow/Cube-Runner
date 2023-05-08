@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject obstacle;
     public GameObject player;
     public Transform spawnPoint;
+    public TextMeshProUGUI titleText;
     public TextMeshProUGUI scoreText;
     public GameObject playButton;
     public GameObject pauseButton;
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
         GameObject newObstacle = Instantiate(obstacle, spawnPoint.position, Quaternion.identity);
 
         // Obstacles can spawn at different heights
-        if (Random.Range(0, 5) == 0)
+        if (Random.Range(0, 7) == 0)
         {
             newObstacle.transform.Translate(Vector3.up * 2.5f);
         }
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
         // Check if the game is still active before spawning an obstacle
         while (isGameActive)
         {
-            float waitTime = Random.Range(0.6f, 2f);
+            float waitTime = Random.Range(0.5f, 2f);
             yield return new WaitForSeconds(waitTime);
 
             if (!isPaused)
@@ -64,6 +65,16 @@ public class GameManager : MonoBehaviour
                 CreateObstacle();
             }
         }
+    }
+
+    // Pause the game
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+        pauseButton.SetActive(!isPaused);
+        playButton.SetActive(isPaused);
+        titleText.gameObject.SetActive(isPaused);
+        scoreText.gameObject.SetActive(!isPaused);
     }
 
     // Start the game
@@ -77,27 +88,8 @@ public class GameManager : MonoBehaviour
             StartCoroutine("SpawnObstacle");
         }
         
-        isPaused = false;
         player.SetActive(true);
-        playButton.SetActive(false);
-        pauseButton.SetActive(true);
-    }
-
-    // Pause the game
-    public void TogglePause()
-    {
-        if (!isPaused)
-        {
-            isPaused = true;
-            pauseButton.SetActive(false);
-            playButton.SetActive(true);
-        }
-        else
-        {
-            isPaused = false;
-            pauseButton.SetActive(true);
-            playButton.SetActive(false);
-        }
+        TogglePause();
     }
 
     // Getter for isPaused

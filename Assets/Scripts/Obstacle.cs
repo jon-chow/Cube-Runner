@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    public float speed;
     public GameManager gameManager;
     Material material;
+    float speed;
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +14,9 @@ public class Obstacle : MonoBehaviour
         // Set a random material for the obstacle
         material = GetComponent<Renderer>().material;
         material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+
+        // Set a random speed for the obstacle
+        speed = Random.Range(10f, 12f) * -1f;
     }
 
     // Update is called once per frame

@@ -8,7 +8,7 @@ I had originally followed [a YouTube tutorial](https://www.youtube.com/watch?v=W
 
 ## FEATURES
 - **Score System:** The game now has a score system that is based on the number of obstacles the player has passed. I will be adding a high score system in the future.
-- **Obstacle Spawning:** The game now spawns obstacles at random heights (they also spawn in random colours).
+- **Obstacle Spawning:** The game now spawns obstacles at random heights and at varying speeds (they also spawn in random colours).
 - **Pause Menu:** The game now has a pause menu that can be accessed by pressing the pause button in the top right corner of the screen. I will be adding more options to the pause menu in the future.
 
 ## TO-DO
