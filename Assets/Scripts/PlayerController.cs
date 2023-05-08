@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody rb;
     public float jumpForce;
+    public GameManager gameManager;
+    Rigidbody rb;
     bool canJump;
 
+    // Get the rigidbody component
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,12 +24,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && canJump)
+        // Jump when the player clicks the left mouse button or the space bar
+        if (((Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) ||
+            Input.GetKeyDown(KeyCode.Space))
+            && canJump
+            && !gameManager.IsPaused())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+        
+        // Freeze the player if the game is paused
+        rb.isKinematic = gameManager.IsPaused();
     }
 
+    // Player can jump when touching the ground
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -36,6 +46,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Player can't jump when not touching the ground
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -44,6 +55,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Game restarts when touching an obstacle
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Obstacle"))
