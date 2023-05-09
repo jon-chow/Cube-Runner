@@ -8,9 +8,8 @@ public class GameManager : MonoBehaviour
     public GameObject obstacle;
     public GameObject player;
     public Transform spawnPoint;
-    public TextMeshProUGUI titleText;
     public TextMeshProUGUI scoreText;
-    public GameObject playButton;
+    public GameObject mainMenuPanel;
     public GameObject pauseButton;
 
     bool isGameActive = false;
@@ -72,8 +71,7 @@ public class GameManager : MonoBehaviour
     {
         isPaused = !isPaused;
         pauseButton.SetActive(!isPaused);
-        playButton.SetActive(isPaused);
-        titleText.gameObject.SetActive(isPaused);
+        mainMenuPanel.SetActive(isPaused);
         scoreText.gameObject.SetActive(!isPaused);
     }
 
