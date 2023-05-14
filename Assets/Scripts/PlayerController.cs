@@ -24,9 +24,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Jump when the player clicks the left mouse button or the space bar
-        if (((Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject()) ||
-            Input.GetKeyDown(KeyCode.Space))
+        // Jump when the player taps on the screen, or presses the space bar
+        if ((Input.GetKeyDown(KeyCode.Space)
+            || Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
             && canJump
             && !gameManager.IsPaused())
         {

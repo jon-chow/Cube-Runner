@@ -42,22 +42,22 @@ public class Obstacle : MonoBehaviour
         if (!gameManager.IsPaused())
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
+            // Clockwise rotation
+            if (isRotatingClockwise)
+            {
+                transform.Rotate(Vector3.forward * 5f * Time.deltaTime);
+            }
+            // Counter-clockwise rotation
+            else if (isRotatingCounterClockwise)
+            {
+                transform.Rotate(-Vector3.forward * 5f * Time.deltaTime);
+            }
         }
 
         if (transform.position.z < -5)
         {
             OnBecomeInvisible();
-        }
-
-        // Clockwise rotation
-        if (isRotatingClockwise)
-        {
-            transform.Rotate(Vector3.forward * 5f * Time.deltaTime);
-        }
-        // Counter-clockwise rotation
-        else if (isRotatingCounterClockwise)
-        {
-            transform.Rotate(-Vector3.forward * 5f * Time.deltaTime);
         }
     }
     
